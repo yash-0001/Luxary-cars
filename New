@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    environment {
+        WAR_FILE = "target/addressbook.war"
+        APP_NODE = "ec2-user@<Application-Node-Public-IP>"   // Replace with your EC2 App Node IP
+        SSH_KEY  = "~/.ssh/your-key.pem"                     // Replace with your private key path
+    }
+
+    stages {
+        stage('Build with Maven') {
+            steps {
+                sh 'mvn clean compile'
+                sh 'mvn test'
+                sh 'mvn package -DskipTests'
+            }
+        }
+
+        stage('Install Tomcat via Ansible') {
+            steps {
+                sh '''
+                ansible-playbook -i ${APP_NODE}, ansible/tomcat-install.yml \
+                  --private-key ${SSH_KEY} -u ec2-user
+                '''
+            }
+        }
+
+        stage('Deploy WAR to Tomcat') {
+            steps {
+                sh '''
+                ansible-playbook -i ${APP_NODE}, ansible/deploy.yml \
+                  --extra-vars "war_file=${WAR_FILE}" \
+                  --private-key ${SSH_KEY} -u ec2-user
+                '''
+            }
+        }
+    }
+}
