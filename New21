@@ -54,3 +54,61 @@ pipeline {
         }
     }
 }
+
+
+
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "my-apache-site:latest"
+        REGISTRY = "localhost:5000" // Change if using a different registry
+    }
+
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                echo "Building Docker image..."
+                sh "docker build -t $IMAGE_NAME ."
+            }
+        }
+
+        stage('Push to Registry') {
+            steps {
+                echo "Pushing Docker image to registry..."
+                sh """
+                docker tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME
+                docker push $REGISTRY/$IMAGE_NAME
+                """
+            }
+        }
+
+        stage('Deploy Container') {
+            steps {
+                echo "Deploying Docker container..."
+                sh """
+                docker stop my-apache-site || true
+                docker rm my-apache-site || true
+                docker run -d --name my-apache-site -p 8080:80 $REGISTRY/$IMAGE_NAME
+                """
+            }
+        }
+
+        stage('Health Check') {
+            steps {
+                echo "Performing health check..."
+                sh 'curl -f http://localhost:8080 || exit 1'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Deployment succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed. Check logs.'
+        }
+    }
+}
+
