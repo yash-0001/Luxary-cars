@@ -90,3 +90,17 @@ eksctl create cluster \
   --node-type t2.small \
   --nodes 1
 
+
+
+
+
+
+
+
+
+
+2025-09-12 11:35:40 [✖]  AWS::IAM::Role/ServiceRole: CREATE_FAILED – "Resource creation cancelled"
+2025-09-12 11:35:40 [✖]  AWS::EC2::EIP/NATIP: CREATE_FAILED – "Resource creation cancelled"
+2025-09-12 11:35:40 [✖]  AWS::EC2::InternetGateway/InternetGateway: CREATE_FAILED – "Resource creation cancelled"
+2025-09-12 11:35:40 [✖]  AWS::EC2::VPC/VPC: CREATE_FAILED – "Resource handler returned message: \"You are not authorized to perform this operation. User: arn:aws:iam::909688465000:user/clahaan-user3 is not authorized to perform: ec2:CreateVpc on resource: arn:aws:ec2:us-west-1:909688465000:vpc/* with an explicit deny in an identity-based policy. Encoded authorization failure message: 67MclBl04yDYPdMdpartJiwXDhE23SmeOJakzmcHskE9Y1xj0pVySESdLWBeWQMeJ_-cCwaPcOskZwegVurnHe-23YByMsTt-epkmcrb4wnZlY-EfVVkzMW8J7xCuLwonetdI3JGpieZkrxDcK-SIvGZcZOyjqeprPoA6OhKaYXp3MvfEiXEc8Ysv8n5Xy6gXG_BU7NJfflop7mkHiGAEFGZ2MCtP83UrxPt_OcWwCvgomwT7rWE3KjILE3tMhMBFCnW5jZexUCTjnXzTgwJw8RfmppHEAXBWXRMGMDEQ0Udzf1LgGcIlauZ_Fk7L5ZbwuiXmo4T2Nj_gPkSjXznBviUKZFQdVgokqujfNKBMNUo8t_HSMU5sO7X5SqonML-44wS59ZgI5OdLpUBBKs33SSFVPhN2mB6NcHSISYvTjsXW9eR5i7Em2ehEOug_ShKgSnImUTIf9Pl8Uy0MVKG9uBGmOCP_9u8Elu2wpQME_K8yK3J1bvFWATh5F5CEkxEXHcPbfVg9_KYs0cvlFMHylQGxkRUJGW0a8NofS02b_ktPAslPL_zLy7RF5lQCw5iwJBZcNQYpvPThn_Dl4_0MWvYvcoXw2sN9M7R2aFZ1VX9Bo4sg8H-dQOYUkKRDBQ1wBhM0HMuMks6wL9g3ok9Cz6jP4qJjmPm3bz2wkHlPvKNndcI_o06FsBxdbJxCwioNKDtCQ (Service: Ec2, Status Code: 403, Request ID: 3a811cd4-5cc9-487a-a791-0fd5ebd079ec) (SDK Attempt Count: 1)\" (RequestToken: a4a82d79-a350-2054-5ec1-486073403a38, HandlerErrorCode: AccessDenied)"
+
