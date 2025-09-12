@@ -78,3 +78,15 @@ cat >eks-cluster-role-trust-policy.json <<EOF
   ]
 }
 EOF
+
+
+
+
+eksctl create cluster \
+  --name yashwardhan \
+  --region us-west-1 \
+  --zones us-west-1c \
+  --nodegroup-name user-yash \
+  --node-type t2.small \
+  --nodes 1
+
